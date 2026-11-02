@@ -163,31 +163,8 @@ All 9 unit and integration tests will execute and pass.
 
 ---
 
-## 7. Interview Defensibility & FAQ (Deloitte / Big 4 Target)
 
-### Q1: Why did you split the architecture into a Speed Layer and a Batch Layer?
-> *"True incremental community detection (Louvain) and global centrality metrics (Betweenness) are unsolved research problems; recomputing them mathematically requires the entire graph state. However, checking whether a single newly arriving transaction edge closes a circular cycle is computationally cheap—it's simply a bounded shortest-path lookup from destination back to source. The Lambda architecture split is not a workaround; it's mapping each algorithm's intrinsic complexity to the right execution tier."*
 
-### Q2: Why Neo4j with GDS rather than staying with pure NetworkX?
-> *"NetworkX is single-process and in-memory. Every run requires reloading the graph from disk, and state disappears when the process terminates. Neo4j is a persistent property graph database where queries are executed in optimized C++/Java directly where the data lives. GDS projects in-memory subgraphs for sub-second Louvain and PageRank runs. NetworkX is kept strictly as a utility for synthetic background graph generation."*
-
-### Q3: Why Redis Streams instead of Apache Kafka?
-> *"Kafka is designed for massive distributed partitions across multiple broker clusters. For this system's scale and demo requirements, Redis Streams provides the exact same architectural guarantees—an append-only log, consumer groups, pending entry lists (PEL), and at-least-once delivery via acknowledgment (`XACK`)—in a lightweight process with zero maintenance overhead. I can explicitly name the partition and log compaction features that would justify migrating to Kafka at multi-terabyte scale."*
-
-### Q4: How did you validate accuracy without training on fraud labels?
-> *"The Isolation Forest is completely unsupervised. It never sees `ground_truth.csv` during fitting; it isolates anomalous topological combinations (e.g. high betweenness combined with low clustering and reporting-threshold proximity). Ground-truth labels are only used post-hoc in evaluation to measure real ROC-AUC, Precision, Recall, and F1 scores."*
-
-### Q5: Why GraphSAGE instead of a standard GCN or GAT?
-> *"GraphSAGE is inductive—it learns a neighbor-aggregation function that generalizes to nodes never seen during training. Because Skein's graph grows continuously in real-time as transactions stream in, a transductive model like a standard GCN would require retraining the entire network from scratch every time a new entity transacts."*
-
-### Q6: How did you prevent data leakage in GNN link prediction?
-> *"We utilized a strict temporal split rather than a random edge split. Transactions were sorted chronologically: the model was trained strictly on graph structure up to time $T$ (first 80%), and evaluated exclusively on predicting transactions that occurred after $T$. A random edge split would allow the GNN to peek at future graph topologies, artificially inflating metrics."*
-
-### Q7: Why add an AI Narrator? Isn't an LLM prone to hallucinations in compliance?
-> *"The AI Narrator is architecturally constrained to grounded generation. It is never asked an open-ended question; it is given only the exact computed metrics (risk score, percentiles, cycle membership, shell density) and instructed to phrase them into a concise compliance note. Furthermore, notes only regenerate when an entity's risk score drifts by more than 10 points, controlling cost and narrative stability."*
-
----
-
-## 8. License
+## 7. License
 
 MIT License. Designed and authored by Navya Rangwani.
