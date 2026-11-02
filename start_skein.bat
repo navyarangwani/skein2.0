@@ -8,6 +8,6 @@ cd /d "%~dp0"
 set PYTHONPATH=%~dp0
 
 echo.
-echo Starting Backend & Frontend via PowerShell launcher...
+echo Starting Backend and Frontend via PowerShell launcher...
 powershell -ExecutionPolicy Bypass -File "%~dp0start_skein.ps1"
 pause
