@@ -8,10 +8,14 @@ export function useWebSocket(onEvent) {
 
   const connect = useCallback(() => {
     // Build websocket URL
-    const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
-    const host = window.location.host;
-    // In dev with proxy, or direct port 8000
-    const wsUrl = `${protocol}//${host}/ws/live`;
+    let wsUrl;
+    if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+      // Connect directly to backend port 8000 to eliminate Node proxy IPv6 socket aborts on Windows
+      wsUrl = 'ws://127.0.0.1:8000/ws/live';
+    } else {
+      const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+      wsUrl = `${protocol}//${window.location.host}/ws/live`;
+    }
 
     try {
       const ws = new WebSocket(wsUrl);

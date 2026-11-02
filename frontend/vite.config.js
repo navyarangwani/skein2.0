@@ -12,22 +12,13 @@ export default defineConfig({
     port: 5173,
     proxy: {
       '/api': {
-        target: 'http://localhost:8000',
+        target: 'http://127.0.0.1:8000',
         changeOrigin: true,
-        configure: (proxy) => {
-          proxy.on('error', (err, _req, _res) => {
-            // Silently handle proxy connection refused/aborted when backend is offline
-          });
-        },
       },
       '/ws': {
-        target: 'ws://localhost:8000',
+        target: 'ws://127.0.0.1:8000',
         ws: true,
-        configure: (proxy) => {
-          proxy.on('error', (err, _req, _res) => {
-            // Silently handle ws proxy aborts
-          });
-        },
+        changeOrigin: true,
       }
     }
   }
