@@ -1,6 +1,7 @@
 import React from 'react';
 import { useAnalysis } from '../context/AnalysisContext';
 import {
+  Network,
   Users,
   Repeat,
   ShieldAlert,
@@ -243,11 +244,11 @@ export function OverviewPage({ onNavigate }) {
                     />
                     <div className="truncate">
                       <span className="font-mono font-bold text-white mr-2">{a.alert_id}</span>
-                      <span className="text-[#A1A1AA]">{a.message.split('\n')[0]}</span>
+                      <span className="text-[#A1A1AA]">{a.message ? a.message.split('\n')[0] : (a.alert_source || 'Alert')}</span>
                     </div>
                   </div>
                   <span className="text-[10px] text-[#71717A] shrink-0 font-mono">
-                    {new Date(a.sent_at).toLocaleTimeString()}
+                    {a.sent_at ? new Date(a.sent_at).toLocaleTimeString() : 'Recent'}
                   </span>
                 </div>
               ))}

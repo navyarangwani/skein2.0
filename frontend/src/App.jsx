@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { AnalysisProvider } from './context/AnalysisContext';
 import { LandingPage } from './pages/LandingPage';
 import { AppShell } from './components/AppShell';
@@ -15,26 +15,47 @@ import { StreamingPage } from './pages/StreamingPage';
 import { SystemHealthPage } from './pages/SystemHealthPage';
 
 export function App() {
-  const [isLandingPage, setIsLandingPage] = useState(true);
+  const [isLandingPage, setIsLandingPage] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return !window.location.hash.includes('app');
+    }
+    return true;
+  });
   const [activeSection, setActiveSection] = useState('overview');
+
+  useEffect(() => {
+    const handleHashChange = () => {
+      if (window.location.hash.includes('app')) {
+        setIsLandingPage(false);
+      }
+    };
+    window.addEventListener('hashchange', handleHashChange);
+    return () => window.removeEventListener('hashchange', handleHashChange);
+  }, []);
 
   const handleLaunchApp = (targetSection = 'overview') => {
     if (typeof targetSection === 'string') {
       setActiveSection(targetSection);
     }
     setIsLandingPage(false);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (typeof window !== 'undefined') {
+      window.location.hash = 'app';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
   };
 
   const handleExitToLanding = () => {
     setIsLandingPage(true);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (typeof window !== 'undefined') {
+      window.location.hash = '';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
   };
 
   return (
     <AnalysisProvider>
       {isLandingPage ? (
-        <LandingPage onLaunchApp={() => handleLaunchApp('overview')} />
+        <LandingPage onLaunchApp={(sec) => handleLaunchApp(sec || 'overview')} />
       ) : (
         <AppShell
           activeSection={activeSection}

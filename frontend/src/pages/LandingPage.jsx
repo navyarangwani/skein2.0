@@ -69,10 +69,10 @@ export function LandingPage({ onLaunchApp }) {
               Lambda Architecture
             </a>
             <a href="#preview" className="hover:text-white transition-colors">
-              Graph Engine
+              Live Graph Preview
             </a>
             <a href="#defensibility" className="hover:text-white transition-colors">
-              Forensic Methodology
+              Methodology
             </a>
             <a href="#faq" className="hover:text-white transition-colors">
               FAQ
@@ -81,27 +81,34 @@ export function LandingPage({ onLaunchApp }) {
 
           {/* CTA Button */}
           <button
-            onClick={onLaunchApp}
-            className="px-4 py-2 rounded-xl text-xs font-semibold bg-gradient-to-r from-[#FF5722] to-[#FF8A35] hover:from-[#ff6434] hover:to-[#ff974b] text-white shadow-lg shadow-[#FF5722]/25 flex items-center gap-2 transition-all transform hover:scale-[1.02] cursor-pointer"
+            onClick={() => onLaunchApp('overview')}
+            className="px-5 py-2.5 rounded-xl text-xs font-bold bg-gradient-to-r from-[#FF5722] to-[#FF8A35] hover:from-[#ff6434] hover:to-[#ff974b] text-white shadow-lg shadow-[#FF5722]/30 flex items-center gap-2 transition-all transform hover:scale-[1.03] cursor-pointer"
           >
-            <span>Launch App</span>
+            <span>Launch Studio</span>
             <ArrowRight className="w-3.5 h-3.5" />
           </button>
         </div>
       </nav>
 
       {/* 2. Hero Section */}
-      <section className="relative pt-20 pb-24 px-6 max-w-7xl mx-auto text-center z-10">
+      <section className="relative pt-16 pb-20 px-6 max-w-7xl mx-auto text-center z-10">
         {/* Pill Badge */}
-        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#171717] border border-white/[0.08] text-xs mb-8 shadow-inner">
+        <div
+          onClick={() => onLaunchApp('overview')}
+          className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#171717] hover:bg-[#202020] border border-[#FF5722]/40 text-xs mb-8 shadow-inner cursor-pointer transition-colors"
+        >
           <span className="relative flex h-2 w-2">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#FF5722] opacity-75"></span>
             <span className="relative inline-flex rounded-full h-2 w-2 bg-[#FF5722]"></span>
           </span>
-          <span className="text-[#A1A1AA] font-medium text-[11px] uppercase tracking-wider">
-            Real-Time AML Graph Intelligence • Lambda Speed Layer
+          <span className="text-[#FF8A35] font-semibold text-[11px] uppercase tracking-wider">
+            222 Entities & 300 Transactions Active Live
           </span>
-          <ChevronRight className="w-3 h-3 text-[#A1A1AA]" />
+          <span className="text-[#71717A]">•</span>
+          <span className="text-white text-[11px] flex items-center gap-1">
+            <span>Enter Studio</span>
+            <ChevronRight className="w-3 h-3 text-[#FF5722]" />
+          </span>
         </div>
 
         {/* Big Headline */}
@@ -122,64 +129,91 @@ export function LandingPage({ onLaunchApp }) {
         {/* Action Buttons */}
         <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
           <button
-            onClick={onLaunchApp}
-            className="px-6 py-3.5 rounded-xl text-sm font-bold bg-gradient-to-r from-[#FF5722] to-[#FF8A35] hover:from-[#ff6434] hover:to-[#ff974b] text-white shadow-xl shadow-[#FF5722]/30 flex items-center gap-2.5 transition-all transform hover:scale-[1.02] cursor-pointer"
+            onClick={() => onLaunchApp('graph')}
+            className="px-8 py-4 rounded-xl text-sm font-bold bg-gradient-to-r from-[#FF5722] to-[#FF8A35] hover:from-[#ff6434] hover:to-[#ff974b] text-white shadow-xl shadow-[#FF5722]/35 flex items-center gap-2.5 transition-all transform hover:scale-[1.03] cursor-pointer"
           >
-            <span>Launch Forensic Studio</span>
+            <Network className="w-5 h-5" />
+            <span>Launch Network Graph Explorer</span>
             <ArrowRight className="w-4 h-4" />
           </button>
 
-          <a
-            href="#architecture"
-            className="px-6 py-3.5 rounded-xl text-sm font-semibold bg-[#171717] hover:bg-[#202020] text-[#A1A1AA] hover:text-white border border-white/[0.08] transition-all flex items-center gap-2 cursor-pointer"
+          <button
+            onClick={() => onLaunchApp('overview')}
+            className="px-6 py-4 rounded-xl text-sm font-semibold bg-[#171717] hover:bg-[#202020] text-white border border-white/[0.08] hover:border-[#FF5722]/40 transition-all flex items-center gap-2 cursor-pointer"
           >
-            <Cpu className="w-4 h-4 text-[#FF5722]" />
-            <span>Explore Lambda Architecture</span>
-          </a>
+            <span>Open Executive Overview</span>
+          </button>
         </div>
 
         {/* Key Metrics Strip */}
         <div className="mt-14 pt-8 border-t border-white/[0.08] grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto text-left">
-          <div className="bg-[#111111]/80 border border-white/[0.06] rounded-xl p-4">
+          <div
+            onClick={() => onLaunchApp('cycles')}
+            className="bg-[#111111]/80 hover:bg-[#161616] border border-white/[0.06] hover:border-[#FF5722]/40 rounded-xl p-4 cursor-pointer transition-all"
+          >
             <div className="text-2xl font-extrabold font-mono text-[#FF5722]">&lt; 2ms</div>
             <div className="text-xs text-[#A1A1AA] mt-1 font-medium">Speed Layer Latency</div>
-            <div className="text-[10px] text-[#71717A]">Bounded incremental cycle queries</div>
+            <div className="text-[10px] text-[#FF8A35] mt-1 flex items-center gap-1">
+              <span>View 29 Detected Loops</span>
+              <ArrowRight className="w-3 h-3" />
+            </div>
           </div>
-          <div className="bg-[#111111]/80 border border-white/[0.06] rounded-xl p-4">
+
+          <div
+            onClick={() => onLaunchApp('overview')}
+            className="bg-[#111111]/80 hover:bg-[#161616] border border-white/[0.06] hover:border-emerald-500/40 rounded-xl p-4 cursor-pointer transition-all"
+          >
             <div className="text-2xl font-extrabold font-mono text-white">0.85+</div>
             <div className="text-xs text-[#A1A1AA] mt-1 font-medium">Unsupervised ROC-AUC</div>
-            <div className="text-[10px] text-[#71717A]">Validated on ground truth rings</div>
+            <div className="text-[10px] text-[#71717A] mt-1">Isolation Forest Topo Scores</div>
           </div>
-          <div className="bg-[#111111]/80 border border-white/[0.06] rounded-xl p-4">
+
+          <div
+            onClick={() => onLaunchApp('predictions')}
+            className="bg-[#111111]/80 hover:bg-[#161616] border border-white/[0.06] hover:border-purple-500/40 rounded-xl p-4 cursor-pointer transition-all"
+          >
             <div className="text-2xl font-extrabold font-mono text-[#FF8A35]">GraphSAGE</div>
             <div className="text-xs text-[#A1A1AA] mt-1 font-medium">Inductive Link GNN</div>
-            <div className="text-[10px] text-[#71717A]">Predicts emerging laundering ties</div>
+            <div className="text-[10px] text-purple-400 mt-1 flex items-center gap-1">
+              <span>Inspect Predictions</span>
+              <ArrowRight className="w-3 h-3" />
+            </div>
           </div>
-          <div className="bg-[#111111]/80 border border-white/[0.06] rounded-xl p-4">
+
+          <div
+            onClick={() => onLaunchApp('narratives')}
+            className="bg-[#111111]/80 hover:bg-[#161616] border border-white/[0.06] hover:border-amber-500/40 rounded-xl p-4 cursor-pointer transition-all"
+          >
             <div className="text-2xl font-extrabold font-mono text-white">100%</div>
             <div className="text-xs text-[#A1A1AA] mt-1 font-medium">Grounded AI Notes</div>
-            <div className="text-[10px] text-[#71717A]">Strictly zero-hallucination compliance</div>
+            <div className="text-[10px] text-amber-400 mt-1 flex items-center gap-1">
+              <span>Browse Case-Files</span>
+              <ArrowRight className="w-3 h-3" />
+            </div>
           </div>
         </div>
 
         {/* 3. Product Showcase / Interactive Dashboard Preview */}
         <div id="preview" className="mt-16 relative mx-auto max-w-6xl">
-          <div className="rounded-2xl p-1 bg-gradient-to-b from-white/10 via-[#FF5722]/20 to-transparent shadow-2xl">
-            <div className="bg-[#0e0e0e] border border-white/[0.08] rounded-2xl overflow-hidden shadow-2xl text-left">
+          <div
+            onClick={() => onLaunchApp('graph')}
+            className="group cursor-pointer rounded-2xl p-1 bg-gradient-to-b from-white/10 via-[#FF5722]/30 to-transparent shadow-2xl transition-all transform hover:scale-[1.01]"
+          >
+            <div className="bg-[#0e0e0e] border border-white/[0.08] group-hover:border-[#FF5722]/50 rounded-2xl overflow-hidden shadow-2xl text-left relative">
               {/* Fake Chrome Bar */}
               <div className="bg-[#141414] px-4 py-2.5 border-b border-white/[0.06] flex items-center justify-between">
                 <div className="flex items-center gap-2">
                   <span className="w-3 h-3 rounded-full bg-[#ff5f56]" />
                   <span className="w-3 h-3 rounded-full bg-[#ffbd2e]" />
                   <span className="w-3 h-3 rounded-full bg-[#27c93f]" />
-                  <span className="ml-3 font-mono text-[11px] text-[#71717A]">
-                    skein-forensic-studio // live-stream: active (Redis PEL: 0)
+                  <span className="ml-3 font-mono text-[11px] text-[#A1A1AA]">
+                    Click to Open Full Interactive Graph Studio (222 Entities)
                   </span>
                 </div>
                 <div className="flex items-center gap-2 text-xs">
-                  <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-mono text-[11px]">
-                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                    WS LIVE
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FF5722]/20 text-[#FF8A35] border border-[#FF5722]/40 font-mono text-[11px] font-bold">
+                    <span>ENTER LIVE STUDIO</span>
+                    <ArrowRight className="w-3.5 h-3.5" />
                   </span>
                 </div>
               </div>
@@ -191,7 +225,7 @@ export function LandingPage({ onLaunchApp }) {
                   <div className="flex items-center justify-between">
                     <div>
                       <div className="text-xs font-bold uppercase tracking-wider text-[#FF5722]">
-                        Topology Canvas Preview
+                        Topology Canvas Live Demonstration
                       </div>
                       <div className="text-sm font-semibold text-white mt-0.5">
                         Circular Layering Ring Detection
@@ -204,7 +238,7 @@ export function LandingPage({ onLaunchApp }) {
 
                   {/* Visual Node Diagram */}
                   <div className="my-6 flex items-center justify-center relative">
-                    <div className="relative w-72 h-44 border border-dashed border-[#FF5722]/30 rounded-full flex items-center justify-center animate-pulse-slow">
+                    <div className="relative w-72 h-44 border border-dashed border-[#FF5722]/40 rounded-full flex items-center justify-center animate-pulse-slow">
                       <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#FF5722] text-white px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold shadow-lg shadow-[#FF5722]/50">
                         ENT_00223 (Shell)
                       </div>
@@ -228,7 +262,7 @@ export function LandingPage({ onLaunchApp }) {
                   </div>
 
                   {/* Speed Layer Alert Bar */}
-                  <div className="bg-[#171717] border border-[#FF5722]/30 rounded-lg p-2.5 flex items-center justify-between text-xs">
+                  <div className="bg-[#171717] border border-[#FF5722]/30 rounded-lg p-3 flex items-center justify-between text-xs">
                     <div className="flex items-center gap-2">
                       <ShieldAlert className="w-4 h-4 text-[#FF5722]" />
                       <span className="text-slate-200">
@@ -252,7 +286,7 @@ export function LandingPage({ onLaunchApp }) {
                       <span className="text-[10px] text-[#FF8A35] font-mono">Grounded</span>
                     </div>
                     <p className="text-xs text-[#A1A1AA] italic leading-relaxed bg-[#171717] p-3 rounded-lg border border-white/[0.04]">
-                      "Entity Udant Dewan (ENT_00002) is classified as an individual operating at CRITICAL risk (99.1/100). Forensic graph analysis identified direct involvement in a closed circular layering transaction loop. Immediate compliance review and source-of-funds verification are recommended."
+                      "Entity Udant Dewan (ENT_00002) is classified as an individual operating at CRITICAL risk (99.1/100). Forensic graph analysis identified direct involvement in a closed circular layering transaction loop."
                     </p>
                   </div>
 
@@ -293,110 +327,152 @@ export function LandingPage({ onLaunchApp }) {
       <section id="features" className="py-24 px-6 max-w-7xl mx-auto border-t border-white/[0.08] relative z-10">
         <div className="text-center max-w-3xl mx-auto mb-16">
           <div className="text-xs font-bold uppercase tracking-widest text-[#FF5722] mb-2">
-            Forensic Capabilities
+            Forensic Capabilities (Click to Launch)
           </div>
           <h2 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
             Designed for Deloitte & Big 4 Financial Crime Forensics
           </h2>
           <p className="mt-4 text-sm sm:text-base text-[#A1A1AA]">
-            Every architectural decision solves a known shortcoming of legacy transaction monitoring systems.
+            Click any capability below to explore its live interactive dashboard view.
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {/* Card 1: Sub-5ms Speed Layer */}
-          <div className="glass-card rounded-2xl p-6 flex flex-col justify-between">
+          <div
+            onClick={() => onLaunchApp('cycles')}
+            className="glass-card hover:border-[#FF5722]/50 hover:bg-[#141414] rounded-2xl p-6 flex flex-col justify-between cursor-pointer transition-all transform hover:scale-[1.01]"
+          >
             <div>
               <div className="w-10 h-10 rounded-xl bg-[#FF5722]/15 border border-[#FF5722]/30 flex items-center justify-center text-[#FF5722] mb-4">
                 <Zap className="w-5 h-5" />
               </div>
-              <h3 className="text-base font-bold text-white">Sub-5ms Speed Layer</h3>
+              <h3 className="text-base font-bold text-white flex items-center justify-between">
+                <span>Sub-5ms Speed Layer</span>
+                <ArrowRight className="w-4 h-4 text-[#FF5722]" />
+              </h3>
               <p className="mt-2 text-xs text-[#A1A1AA] leading-relaxed">
                 Evaluates each arriving transaction incrementally. A bounded path query checks whether the new edge closes an elementary circuit up to length 6, flagging layering loops instantly before the capital moves on.
               </p>
             </div>
-            <div className="mt-6 pt-4 border-t border-white/[0.06] text-[11px] font-mono text-[#FF8A35] flex items-center gap-1.5">
+            <div className="mt-6 pt-4 border-t border-white/[0.06] text-[11px] font-mono text-[#FF8A35] flex items-center justify-between">
               <span>Cypher: MATCH (v)-[:TXN*1..5]-&gt;(u)</span>
+              <span className="font-sans font-semibold underline">Explore Loops →</span>
             </div>
           </div>
 
           {/* Card 2: Neo4j Graph Data Science */}
-          <div className="glass-card rounded-2xl p-6 flex flex-col justify-between">
+          <div
+            onClick={() => onLaunchApp('communities')}
+            className="glass-card hover:border-[#FF8A35]/50 hover:bg-[#141414] rounded-2xl p-6 flex flex-col justify-between cursor-pointer transition-all transform hover:scale-[1.01]"
+          >
             <div>
               <div className="w-10 h-10 rounded-xl bg-[#FF8A35]/15 border border-[#FF8A35]/30 flex items-center justify-center text-[#FF8A35] mb-4">
                 <Layers className="w-5 h-5" />
               </div>
-              <h3 className="text-base font-bold text-white">Neo4j Graph Data Science (GDS)</h3>
+              <h3 className="text-base font-bold text-white flex items-center justify-between">
+                <span>Neo4j Graph Data Science (GDS)</span>
+                <ArrowRight className="w-4 h-4 text-[#FF8A35]" />
+              </h3>
               <p className="mt-2 text-xs text-[#A1A1AA] leading-relaxed">
                 Native database-level execution of Louvain Community Detection (identifying isolated shell clusters) and PageRank + Betweenness Centrality (uncovering bridge mules and capital sinks) without moving data out of the graph.
               </p>
             </div>
-            <div className="mt-6 pt-4 border-t border-white/[0.06] text-[11px] font-mono text-[#A1A1AA] flex items-center gap-1.5">
+            <div className="mt-6 pt-4 border-t border-white/[0.06] text-[11px] font-mono text-[#A1A1AA] flex items-center justify-between">
               <span>Native Louvain, PageRank, Betweenness</span>
+              <span className="font-sans font-semibold text-[#FF8A35] underline">View Clusters →</span>
             </div>
           </div>
 
           {/* Card 3: Inductive GraphSAGE GNN */}
-          <div className="glass-card rounded-2xl p-6 flex flex-col justify-between">
+          <div
+            onClick={() => onLaunchApp('predictions')}
+            className="glass-card hover:border-purple-500/50 hover:bg-[#141414] rounded-2xl p-6 flex flex-col justify-between cursor-pointer transition-all transform hover:scale-[1.01]"
+          >
             <div>
               <div className="w-10 h-10 rounded-xl bg-purple-500/15 border border-purple-500/30 flex items-center justify-center text-purple-400 mb-4">
                 <GitBranch className="w-5 h-5" />
               </div>
-              <h3 className="text-base font-bold text-white">Predictive GraphSAGE GNN</h3>
+              <h3 className="text-base font-bold text-white flex items-center justify-between">
+                <span>Predictive GraphSAGE GNN</span>
+                <ArrowRight className="w-4 h-4 text-purple-400" />
+              </h3>
               <p className="mt-2 text-xs text-[#A1A1AA] leading-relaxed">
                 2-layer inductive GraphSAGE neural network trained with a strict temporal train/test split (preventing future structure leakage). Predicts emerging future transaction links near flagged high-risk entities.
               </p>
             </div>
-            <div className="mt-6 pt-4 border-t border-white/[0.06] text-[11px] font-mono text-purple-400 flex items-center gap-1.5">
+            <div className="mt-6 pt-4 border-t border-white/[0.06] text-[11px] font-mono text-purple-400 flex items-center justify-between">
               <span>Inductive edge decoder • 0.80+ ROC-AUC</span>
+              <span className="font-sans font-semibold underline">See Forecasts →</span>
             </div>
           </div>
 
           {/* Card 4: Unsupervised Isolation Forest */}
-          <div className="glass-card rounded-2xl p-6 flex flex-col justify-between">
+          <div
+            onClick={() => onLaunchApp('overview')}
+            className="glass-card hover:border-emerald-500/50 hover:bg-[#141414] rounded-2xl p-6 flex flex-col justify-between cursor-pointer transition-all transform hover:scale-[1.01]"
+          >
             <div>
               <div className="w-10 h-10 rounded-xl bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center text-emerald-400 mb-4">
                 <BarChart3 className="w-5 h-5" />
               </div>
-              <h3 className="text-base font-bold text-white">Unsupervised Anomaly Scoring</h3>
+              <h3 className="text-base font-bold text-white flex items-center justify-between">
+                <span>Unsupervised Anomaly Scoring</span>
+                <ArrowRight className="w-4 h-4 text-emerald-400" />
+              </h3>
               <p className="mt-2 text-xs text-[#A1A1AA] leading-relaxed">
                 Synthesizes 7 topological and behavioral features into a composite anomaly ranking via 200 isolation trees. Ground truth labels are used only post-hoc to measure real 0.85+ ROC-AUC, avoiding label-bias overfitting.
               </p>
             </div>
-            <div className="mt-6 pt-4 border-t border-white/[0.06] text-[11px] font-mono text-emerald-400 flex items-center gap-1.5">
+            <div className="mt-6 pt-4 border-t border-white/[0.06] text-[11px] font-mono text-emerald-400 flex items-center justify-between">
               <span>Percentile conversions (0–100)</span>
+              <span className="font-sans font-semibold underline">Inspect Scores →</span>
             </div>
           </div>
 
           {/* Card 5: Grounded AI Case-File Narrator */}
-          <div className="glass-card rounded-2xl p-6 flex flex-col justify-between">
+          <div
+            onClick={() => onLaunchApp('narratives')}
+            className="glass-card hover:border-[#FF5722]/50 hover:bg-[#141414] rounded-2xl p-6 flex flex-col justify-between cursor-pointer transition-all transform hover:scale-[1.01]"
+          >
             <div>
               <div className="w-10 h-10 rounded-xl bg-[#FF5722]/15 border border-[#FF5722]/30 flex items-center justify-center text-[#FF5722] mb-4">
                 <Sparkles className="w-5 h-5" />
               </div>
-              <h3 className="text-base font-bold text-white">Grounded AI Case Narrator</h3>
+              <h3 className="text-base font-bold text-white flex items-center justify-between">
+                <span>Grounded AI Case Narrator</span>
+                <ArrowRight className="w-4 h-4 text-[#FF5722]" />
+              </h3>
               <p className="mt-2 text-xs text-[#A1A1AA] leading-relaxed">
                 Transforms mathematical graph metrics into 3-4 sentence forensic notes readable by compliance officers in &lt;15 seconds. Built with hard prompt grounding to structurally prevent LLM hallucinations.
               </p>
             </div>
-            <div className="mt-6 pt-4 border-t border-white/[0.06] text-[11px] font-mono text-[#FF8A35] flex items-center gap-1.5">
+            <div className="mt-6 pt-4 border-t border-white/[0.06] text-[11px] font-mono text-[#FF8A35] flex items-center justify-between">
               <span>Groq LLaMA-3.3 / Mistral / Rule-based</span>
+              <span className="font-sans font-semibold underline">Read Case Notes →</span>
             </div>
           </div>
 
           {/* Card 6: Redis Streams Pipeline */}
-          <div className="glass-card rounded-2xl p-6 flex flex-col justify-between">
+          <div
+            onClick={() => onLaunchApp('streaming')}
+            className="glass-card hover:border-amber-500/50 hover:bg-[#141414] rounded-2xl p-6 flex flex-col justify-between cursor-pointer transition-all transform hover:scale-[1.01]"
+          >
             <div>
               <div className="w-10 h-10 rounded-xl bg-amber-500/15 border border-amber-500/30 flex items-center justify-center text-amber-400 mb-4">
                 <Radio className="w-5 h-5" />
               </div>
-              <h3 className="text-base font-bold text-white">Redis Streams Ingestion</h3>
+              <h3 className="text-base font-bold text-white flex items-center justify-between">
+                <span>Redis Streams Ingestion</span>
+                <ArrowRight className="w-4 h-4 text-amber-400" />
+              </h3>
               <p className="mt-2 text-xs text-[#A1A1AA] leading-relaxed">
                 Append-only log architecture using Redis consumer groups. Provides at-least-once processing guarantees (`XACK`) and pending-entry-list replay, ensuring zero transaction loss during consumer restarts.
               </p>
             </div>
-            <div className="mt-6 pt-4 border-t border-white/[0.06] text-[11px] font-mono text-amber-400 flex items-center gap-1.5">
+            <div className="mt-6 pt-4 border-t border-white/[0.06] text-[11px] font-mono text-amber-400 flex items-center justify-between">
               <span>XADD / XREADGROUP / XACK semantics</span>
+              <span className="font-sans font-semibold underline">Control Stream →</span>
             </div>
           </div>
         </div>
@@ -417,11 +493,17 @@ export function LandingPage({ onLaunchApp }) {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="bg-[#111111] border-t-2 border-t-[#FF5722] border-x border-b border-white/[0.08] rounded-2xl p-6">
+          <div
+            onClick={() => onLaunchApp('cycles')}
+            className="bg-[#111111] hover:bg-[#161616] border-t-2 border-t-[#FF5722] border-x border-b border-white/[0.08] hover:border-white/[0.2] rounded-2xl p-6 cursor-pointer transition-all"
+          >
             <div className="text-xs font-mono font-bold text-[#FF5722] uppercase tracking-wider mb-1">
               Cadence 1 • Every Event
             </div>
-            <h3 className="text-lg font-bold text-white">Speed Layer</h3>
+            <h3 className="text-lg font-bold text-white flex items-center justify-between">
+              <span>Speed Layer</span>
+              <ArrowRight className="w-4 h-4 text-[#FF5722]" />
+            </h3>
             <p className="mt-3 text-xs text-[#A1A1AA] leading-relaxed">
               Runs on every individual transaction. Executes schema validation, MERGE upsert into Neo4j, and bounded path checking for newly closed cycles.
             </p>
@@ -432,11 +514,17 @@ export function LandingPage({ onLaunchApp }) {
             </div>
           </div>
 
-          <div className="bg-[#111111] border-t-2 border-t-[#FF8A35] border-x border-b border-white/[0.08] rounded-2xl p-6">
+          <div
+            onClick={() => onLaunchApp('communities')}
+            className="bg-[#111111] hover:bg-[#161616] border-t-2 border-t-[#FF8A35] border-x border-b border-white/[0.08] hover:border-white/[0.2] rounded-2xl p-6 cursor-pointer transition-all"
+          >
             <div className="text-xs font-mono font-bold text-[#FF8A35] uppercase tracking-wider mb-1">
               Cadence 2 • Every 50 Txns / 30s
             </div>
-            <h3 className="text-lg font-bold text-white">Batch Layer</h3>
+            <h3 className="text-lg font-bold text-white flex items-center justify-between">
+              <span>Batch Layer</span>
+              <ArrowRight className="w-4 h-4 text-[#FF8A35]" />
+            </h3>
             <p className="mt-3 text-xs text-[#A1A1AA] leading-relaxed">
               Global graph operations that cannot be computed incrementally: Louvain community partitioning, Betweenness shortest paths, PageRank, and Isolation Forest refitting.
             </p>
@@ -447,11 +535,17 @@ export function LandingPage({ onLaunchApp }) {
             </div>
           </div>
 
-          <div className="bg-[#111111] border-t-2 border-t-purple-500 border-x border-b border-white/[0.08] rounded-2xl p-6">
+          <div
+            onClick={() => onLaunchApp('predictions')}
+            className="bg-[#111111] hover:bg-[#161616] border-t-2 border-t-purple-500 border-x border-b border-white/[0.08] hover:border-white/[0.2] rounded-2xl p-6 cursor-pointer transition-all"
+          >
             <div className="text-xs font-mono font-bold text-purple-400 uppercase tracking-wider mb-1">
               Cadence 3 • Coarser Cadence
             </div>
-            <h3 className="text-lg font-bold text-white">Model Layer</h3>
+            <h3 className="text-lg font-bold text-white flex items-center justify-between">
+              <span>Model Layer</span>
+              <ArrowRight className="w-4 h-4 text-purple-400" />
+            </h3>
             <p className="mt-3 text-xs text-[#A1A1AA] leading-relaxed">
               Inductive GraphSAGE GNN retraining and link probability scoring across the 2-hop neighborhood of high-risk entities. Decoupled from the speed layer to avoid blocking.
             </p>
@@ -535,7 +629,7 @@ export function LandingPage({ onLaunchApp }) {
 
           <div className="mt-8 flex justify-center">
             <button
-              onClick={onLaunchApp}
+              onClick={() => onLaunchApp('overview')}
               className="px-8 py-4 rounded-xl text-sm font-bold bg-gradient-to-r from-[#FF5722] to-[#FF8A35] hover:from-[#ff6434] hover:to-[#ff974b] text-white shadow-xl shadow-[#FF5722]/30 flex items-center gap-2.5 transition-all transform hover:scale-105 cursor-pointer"
             >
               <span>Launch Skein Application</span>
