@@ -14,10 +14,20 @@ export default defineConfig({
       '/api': {
         target: 'http://localhost:8000',
         changeOrigin: true,
+        configure: (proxy) => {
+          proxy.on('error', (err, _req, _res) => {
+            // Silently handle proxy connection refused/aborted when backend is offline
+          });
+        },
       },
       '/ws': {
         target: 'ws://localhost:8000',
         ws: true,
+        configure: (proxy) => {
+          proxy.on('error', (err, _req, _res) => {
+            // Silently handle ws proxy aborts
+          });
+        },
       }
     }
   }

@@ -8,6 +8,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from .config import DATA_DIR
 from .database import init_db
 from .services.stream_pipeline import stream_pipeline
+from .neo4j_client import graph_client
 from .routers import (
     dataset,
     stream,
@@ -42,6 +43,38 @@ async def lifespan(app: FastAPI):
         logger.info("No synthetic dataset found. Generating initial dataset for immediate real-time usage...")
         from ..data_generator.generate_synthetic_data import generate_dataset
         generate_dataset(num_entities=400, num_transactions=1500)
+
+    # Auto-seed the graph snapshot if currently empty so it is demo-ready immediately on launch
+    snapshot = graph_client.get_graph_snapshot()
+    if len(snapshot.get("nodes", [])) == 0:
+        logger.info("Auto-seeding initial graph snapshot for immediate demo readiness...")
+        try:
+            from ..data_generator.generate_synthetic_data import stream_transactions
+            from .services.gnn.train import train_link_predictor
+            from .services.gnn.infer import infer_predicted_links
+
+            count = 0
+            for txn in stream_transactions():
+                stream_pipeline.process_transaction(txn)
+                count += 1
+                if count >= 300:
+                    break
+            logger.info(f"Seeded {count} transactions into graph.")
+
+            # Trigger batch run for Louvain, PageRank, Betweenness, Isolation Forest
+            stream_pipeline.trigger_batch_run(triggered_by="startup_auto_seed")
+
+            # Pre-seed Inductive GraphSAGE GNN Predictions
+            try:
+                train_res = train_link_predictor(epochs=15)
+                preds = infer_predicted_links(train_res, top_k=6)
+                graph_client.write_predicted_links(preds)
+                logger.info(f"Generated {len(preds)} initial GNN link predictions.")
+            except Exception as gnn_err:
+                logger.warning(f"Initial GNN pre-train skipped: {gnn_err}")
+
+        except Exception as seed_err:
+            logger.error(f"Failed to auto-seed initial graph: {seed_err}")
 
     yield
 
