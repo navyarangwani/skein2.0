@@ -1,0 +1,25 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+.env
+*.db
+.pytest_cache/
+
+# Data cache
+data/sample_output/*.csv
+!data/sample_output/.gitkeep
+
+# Node / Frontend
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/
+
+# Docker volumes
+neo4j_data/
+
+# IDE
+.vscode/
+.idea/
+*.swp

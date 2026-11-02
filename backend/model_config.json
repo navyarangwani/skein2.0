@@ -1,0 +1,23 @@
+{
+  "isolation_forest": {
+    "n_estimators": 200,
+    "contamination": 0.05,
+    "random_state": 42
+  },
+  "graphsage_gnn": {
+    "hidden_channels": 32,
+    "out_channels": 16,
+    "num_layers": 2,
+    "lr": 0.01,
+    "epochs": 50,
+    "temporal_split_ratio": 0.80
+  },
+  "thresholds": {
+    "aml_reporting_limit_inr": 50000.0,
+    "batch_transaction_trigger": 50,
+    "batch_time_trigger_seconds": 30,
+    "model_retrain_transaction_trigger": 200,
+    "model_retrain_time_trigger_seconds": 300,
+    "alert_risk_threshold": 85.0
+  }
+}
