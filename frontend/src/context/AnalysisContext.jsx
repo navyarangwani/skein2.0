@@ -154,15 +154,22 @@ export function AnalysisProvider({ children }) {
       }));
     } else if (event.type === 'cycle_detected') {
       // SPEED LAYER HIT!
+      const newToastId = `toast_${Date.now()}_${Math.random().toString(36).substring(2, 6)}`;
       const newToast = {
-        id: `toast_${Date.now()}`,
+        id: newToastId,
         cycle_id: event.cycle_id,
         entities: event.entities,
         volume: event.total_volume,
         length: event.length,
         timestamp: new Date().toLocaleTimeString(),
       };
-      setToasts((prev) => [newToast, ...prev.slice(0, 4)]);
+      // Keep at most 2 toasts active simultaneously to prevent screen overcrowding
+      setToasts((prev) => [newToast, ...prev.slice(0, 1)]);
+
+      // Auto-dismiss after 6 seconds
+      setTimeout(() => {
+        setToasts((prev) => prev.filter((t) => t.id !== newToastId));
+      }, 6000);
 
       // Mark cycle members in nodes
       const cycleSet = new Set(event.entities);
@@ -255,6 +262,10 @@ export function AnalysisProvider({ children }) {
     setToasts((prev) => prev.filter((t) => t.id !== id));
   };
 
+  const clearAllToasts = () => {
+    setToasts([]);
+  };
+
   // Initial load
   useEffect(() => {
     fetchGraph();
@@ -286,6 +297,7 @@ export function AnalysisProvider({ children }) {
         setFilters,
         toasts,
         dismissToast,
+        clearAllToasts,
         batchEvaluating,
         triggerManualBatch,
         selectEntity,
